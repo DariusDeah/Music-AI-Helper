@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  postgres-music-ai:
+    container_name: postgres-dev-container
+    image: postgres:latest
+    ports:
+      - 5555:5432
+    environment:
+      POSTGRES_PASSWORD: "dev-env"
+      POSTGRES_USER: "music-ai-dev"
+    volumes:
+      - db_vol:/data:/var/lib/postgresql/data
+
+volumes:
+  db_vol:
+    driver: local
