@@ -9,11 +9,12 @@ export class AIClient {
   private readonly defaultTemperature: AIClientProps["defaultTemperature"];
   private readonly model: AIClientProps["model"];
   private readonly client: OpenAI;
-  private stateRequest: RequestObject | undefined;
+  private stateRequest: Partial<RequestObject>;
 
   constructor(clientProps: AIClientProps) {
     this.defaultTemperature = clientProps.defaultTemperature;
     this.model = clientProps.model;
+    this.stateRequest = {};
     this.client = new OpenAI({
       apiKey: clientProps.apiKey || process.env.API_KEY,
       organization: clientProps.org || process.env.ORGANIZATION,

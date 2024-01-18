@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import aiRouter from "./src/routes/ai.routes";
 
 config();
 
@@ -18,4 +19,5 @@ app.use("/api/v1/health", (req: Request, res: Response) => {
   });
 });
 
+app.use("/api/v1/ai", aiRouter);
 export default app;
