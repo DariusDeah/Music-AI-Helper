@@ -74,6 +74,7 @@ export async function signupHandler(req: Request, res: Response) {
       new AuthService()
     ).insert(user);
 
+    console.log(createdUser);
     //convert user to api response object to whitelist fields
     const responseUser = userMapper.toApiResponse(createdUser);
 

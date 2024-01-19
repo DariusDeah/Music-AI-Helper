@@ -32,7 +32,7 @@ export class UserRepository
     if (!createdUser) {
       throw new Error("can't create user");
     }
-
+    client.release();
     return this.mapper.toDomain(createdUser.rows[0]);
   }
 
@@ -61,6 +61,7 @@ export class UserRepository
     if (!user.rows.length) {
       throw new Error("user not found!");
     }
+    client.release();
     return this.mapper.toDomain(user.rows[0]);
   }
 
