@@ -10,7 +10,8 @@
     "pre-deploy": "ts-node server.ts",
     "seed": "ts-node ./db/seeds/seed.ts",
     "docker:env": "docker-compose --file docker/docker-compose.yaml up --build -d",
-    "test:unit": "jest /__test__/unit"
+    "test:unit": "jest /__test__/unit",
+    "test:int": "jest /__test__/integration"
   },
   "dependencies": {
     "@types/cookie": "^0.6.0",
@@ -39,7 +40,9 @@
     "@types/cors": "^2.8.17",
     "@types/jest": "^29.5.11",
     "@types/jsonwebtoken": "^9.0.5",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.7",
-    "jest-mock-extended": "^3.0.5"
+    "jest-mock-extended": "^3.0.5",
+    "supertest": "^6.3.4"
   }
 }

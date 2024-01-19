@@ -1,5 +1,5 @@
 start-dev:  start-db-containers seed-dev-data start-dev
-clean-start-server-dev: reset-db-containers start-db-containers  seed-dev-data start-dev
+clean-start-dev: reset-db-containers start-db-containers  seed-dev-data start-dev
 clean-server-dev: reset-db-containers
 
 
@@ -14,6 +14,8 @@ start-dev:
 	npm run start:dev
 
 reset-db-containers:
-	docker-compose --file docker/docker-compose.yml down;
+	docker-compose --file docker/docker-compose.yaml down;
 	docker volume rm docker_db_vol
+
+
 
