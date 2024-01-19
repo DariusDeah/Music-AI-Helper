@@ -22,7 +22,7 @@ export class AIClient {
   }
 
   stream() {
-    this.stateRequest!.req["stream"] = true;
+    this.stateRequest.req["stream"] = true;
     return this;
   }
 
@@ -38,8 +38,8 @@ export class AIClient {
       temperature: this.defaultTemperature,
     };
 
-    this.stateRequest!.req = req;
-    this.stateRequest!.method = StateRequestMethod.chat;
+    this.stateRequest.req = req;
+    this.stateRequest.method = StateRequestMethod.chat;
     return this;
   }
 
@@ -49,7 +49,7 @@ export class AIClient {
       switch (this.stateRequest!.method) {
         case StateRequestMethod.chat:
           res = await this.client.chat.completions.create({
-            ...this.stateRequest!.req,
+            ...this.stateRequest.req,
           });
       }
       return res as T;
