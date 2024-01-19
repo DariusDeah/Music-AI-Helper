@@ -2,19 +2,10 @@ import bcrypt from "bcrypt";
 
 export class AuthService {
   hashPassword(password: string) {
-    let res = "";
-
-    bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(password, salt, function (err, hash) {
-        if (err) {
-          throw new Error(err.message);
-        }
-        res = hash;
-      });
-    });
-
-    return res;
+    const hash = bcrypt.hashSync(password, 10);
+    return hash;
   }
+
   isPasswordMatch(base: string, compare: string): boolean {
     let res: boolean = false;
 

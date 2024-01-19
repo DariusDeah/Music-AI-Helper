@@ -16,8 +16,8 @@ export class UserRepository
 
   async insert(user: UserProp): Promise<User> {
     const query = `
-    insert into users (id,email, password, username,ip) 
-    values ($1,$2,$3,$4,$5)
+    INSERT INTO users (id,email, password, username,ip) 
+    VALUES ($1,$2,$3,$4,$5)
     RETURNING id,email,password,username,ip
     `;
 
@@ -29,8 +29,7 @@ export class UserRepository
       user.username,
       user.ip,
     ]);
-
-    if (!createdUser.rows) {
+    if (!createdUser) {
       throw new Error("can't create user");
     }
 

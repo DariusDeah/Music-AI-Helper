@@ -60,7 +60,7 @@ export async function loginHandler(req: Request, res: Response) {
 }
 
 export async function signupHandler(req: Request, res: Response) {
-  let user: UserProp = {
+  const user: UserProp = {
     email: req.body.email,
     id: uuid(),
     ip: req.ip || "",
@@ -70,7 +70,11 @@ export async function signupHandler(req: Request, res: Response) {
 
   try {
     //save user
-    const createdUser = await userRepository.insert(user);
+    const createdUser = await new UserRepository(
+      pool,
+      new UserMapper(),
+      new AuthService()
+    ).insert(user);
 
     //convert user to api response object to whitelist fields
     const responseUser = userMapper.toApiResponse(createdUser);

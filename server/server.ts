@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import { Pool } from "pg";
 import app from "./app";
+import { initUserTable } from "./db/user";
 
 config();
 
@@ -27,6 +28,8 @@ async function initServer() {
     console.error("Unexpected db error ", err);
     process.exit(-1);
   });
+
+  await initUserTable();
 }
 
 initServer();
