@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import aiRouter from "./src/routes/ai.routes";
+import authRouter from "./src/routes/auth.routes";
 
 config();
 
@@ -20,4 +21,5 @@ app.use("/api/v1/health", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/ai", aiRouter);
+app.use("/api/v1/auth", authRouter);
 export default app;
