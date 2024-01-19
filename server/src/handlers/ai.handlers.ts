@@ -6,6 +6,7 @@ import { AIFilterRequest } from "../dtos/ai-filter-request.dto";
 import { AIMapper } from "../mappers/ai.mapper";
 import { AIError } from "../utils/errors.utils";
 import { ApiResponseFormatter } from "../utils/api-response-formatter.utils";
+import OpenAI from "openai";
 
 export async function handleFilterPrompt(req: Request, res: Response) {
   const reqBody = new AIFilterRequest(req.body);
@@ -14,6 +15,10 @@ export async function handleFilterPrompt(req: Request, res: Response) {
     const aiClient = new AIClient({
       defaultTemperature: DEFAULT_TEMPERATURE,
       model: "gpt-3.5-turbo",
+      provider: new OpenAI({
+        apiKey: process.env.API_KEY,
+        organization: process.env.ORGANIZATION,
+      }),
     });
 
     const resp = await aiClient
@@ -36,6 +41,10 @@ export async function handleDirectPrompt(req: Request, res: Response) {
     const aiClient = new AIClient({
       defaultTemperature: DEFAULT_TEMPERATURE,
       model: "gpt-3.5-turbo",
+      provider: new OpenAI({
+        apiKey: process.env.API_KEY,
+        organization: process.env.ORGANIZATION,
+      }),
     });
 
     const resp = await aiClient

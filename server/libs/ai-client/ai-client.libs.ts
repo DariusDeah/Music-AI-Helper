@@ -15,10 +15,7 @@ export class AIClient {
     this.defaultTemperature = clientProps.defaultTemperature;
     this.model = clientProps.model;
     this.stateRequest = {};
-    this.client = new OpenAI({
-      apiKey: clientProps.apiKey || process.env.API_KEY,
-      organization: clientProps.org || process.env.ORGANIZATION,
-    });
+    this.client = clientProps.provider;
   }
 
   stream() {
@@ -46,7 +43,7 @@ export class AIClient {
   async execute<T>() {
     try {
       let res;
-      switch (this.stateRequest!.method) {
+      switch (this.stateRequest.method) {
         case StateRequestMethod.chat:
           res = await this.client.chat.completions.create({
             ...this.stateRequest.req,
