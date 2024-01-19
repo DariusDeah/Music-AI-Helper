@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+
 export function signJWT(data: any) {
   return jwt.sign(
     {

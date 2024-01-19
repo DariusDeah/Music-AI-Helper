@@ -11,6 +11,7 @@ import { pool } from "../../server";
 import { UserProp } from "../models/user.model";
 import { InvalidCredsError } from "../utils/errors.utils";
 import { LoginRequest } from "../../interfaces/user/user.interfaces";
+import { generateAuthCookie } from "../../libs/cookie.libs";
 
 const authService = new AuthService();
 const userMapper = new UserMapper();
@@ -46,13 +47,7 @@ export async function loginHandler(req: Request, res: Response) {
     const jwt = signJWT(responseUser);
 
     //set cookie
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize("token", jwt, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24, // 1 hour
-      })
-    );
+    res.setHeader("Set-Cookie", generateAuthCookie(jwt));
 
     //return user
     ApiResponseFormatter.success(res, responseUser);
@@ -86,13 +81,7 @@ export async function signupHandler(req: Request, res: Response) {
     const jwt = signJWT(responseUser);
 
     //set cookie
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize("token", jwt, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24, // 1 hour
-      })
-    );
+    res.setHeader("Set-Cookie", generateAuthCookie(jwt));
 
     //return user
     ApiResponseFormatter.created(res, responseUser);
