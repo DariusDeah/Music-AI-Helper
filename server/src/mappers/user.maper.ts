@@ -1,13 +1,13 @@
 import { QueryResult } from "pg";
-import { UserApiResponse } from "../../interfaces/user.interfaces";
+import { UserApiResponse } from "../../interfaces/user/user.interfaces";
 import { User, UserProp } from "../models/user.model";
 
 export class UserMapper {
-  static toApiResponse(user: User): UserApiResponse;
+  toApiResponse(user: User): UserApiResponse;
 
-  static toApiResponse(user: UserProp): UserApiResponse;
+  toApiResponse(user: UserProp): UserApiResponse;
 
-  static toApiResponse(user: any): any {
+  toApiResponse(user: any): any {
     return {
       id: user.id || user.getId(),
       email: user.email || user.getEmail(),
@@ -16,11 +16,11 @@ export class UserMapper {
     };
   }
 
-  static toDomain(user: Partial<User>): User;
+  toDomain(user: Partial<User>): User;
 
-  static toDomain(user: QueryResult<User>): User;
+  toDomain(user: QueryResult<User>): User;
 
-  static toDomain(user: any): any {
+  toDomain(user: any): any {
     return new User({
       id: user.id || user.getId(),
       email: user.email || user.getEmail(),

@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
 export class AuthService {
-  static hashPassword(password: string) {
+  hashPassword(password: string) {
     let res = "";
 
     bcrypt.genSalt(10, function (err, salt) {
@@ -15,7 +15,7 @@ export class AuthService {
 
     return res;
   }
-  static isPasswordMatch(base: string, compare: string): boolean {
+  isPasswordMatch(base: string, compare: string): boolean {
     let res: boolean = false;
 
     bcrypt.compare(compare, base, function (err, result) {
