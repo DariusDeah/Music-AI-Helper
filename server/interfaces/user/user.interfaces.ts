@@ -9,3 +9,8 @@ export interface UserQueryFields {
   username: string;
   id: string;
 }
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
