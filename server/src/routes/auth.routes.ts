@@ -5,13 +5,14 @@ import {
   logoutHandler,
   signupHandler,
 } from "../handlers/auth.handlers";
+import { authGuard } from "../middleware/auth-guard.middleware";
 
 const router = express.Router();
 
 router
   .post("/login", loginHandler)
   .post("/signup", signupHandler)
-  .post("/logout", logoutHandler)
-  .get("/getUserInfo", getUserInfoHandler);
+  .post("/logout", authGuard, logoutHandler)
+  .get("/getUserInfo", authGuard, getUserInfoHandler);
 
 export default router;
