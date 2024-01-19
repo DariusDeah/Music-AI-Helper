@@ -6,16 +6,7 @@ export class AuthService {
     return hash;
   }
 
-  isPasswordMatch(base: string, compare: string): boolean {
-    let res: boolean = false;
-
-    bcrypt.compare(compare, base, function (err, result) {
-      if (err) {
-        throw new Error(err.message);
-      }
-      res = result;
-    });
-
-    return res;
+  async isPasswordMatch(plainText: string, hash: string): Promise<boolean> {
+    return await bcrypt.compare(plainText, hash);
   }
 }

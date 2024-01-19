@@ -50,10 +50,11 @@ export class UserRepository
   async findOneByQuery(queryFields: Partial<UserQueryFields>): Promise<User> {
     let query = "SELECT * FROM users WHERE ";
     Object.keys(queryFields).forEach((queryField: string) => {
-      query += `${queryField} = ${
+      query += `${queryField} = '${
         queryFields[queryField as keyof UserQueryFields]
-      }`;
+      }'`;
     });
+    console.log(query);
     const client = await this.pool.connect();
     const user = await client.query(query);
 

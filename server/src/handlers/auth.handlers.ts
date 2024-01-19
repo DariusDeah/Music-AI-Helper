@@ -12,11 +12,6 @@ import { UserProp } from "../models/user.model";
 import { InvalidCredsError } from "../utils/errors.utils";
 import { LoginRequest } from "../../interfaces/user/user.interfaces";
 
-const userRepository = new UserRepository(
-  pool,
-  new UserMapper(),
-  new AuthService()
-);
 const authService = new AuthService();
 const userMapper = new UserMapper();
 
@@ -27,13 +22,20 @@ export async function loginHandler(req: Request, res: Response) {
   };
 
   try {
-    const foundUser = await userRepository.findOneByQuery({
+    const foundUser = await new UserRepository(
+      pool,
+      new UserMapper(),
+      new AuthService()
+    ).findOneByQuery({
       email: userReq.email,
     });
 
-    if (
-      !authService.isPasswordMatch(userReq.password, foundUser.getPassword())
-    ) {
+    const match = await authService.isPasswordMatch(
+      userReq.password,
+      foundUser.getPassword()
+    );
+
+    if (!match) {
       throw new InvalidCredsError();
     }
 
@@ -53,8 +55,9 @@ export async function loginHandler(req: Request, res: Response) {
     );
 
     //return user
-    ApiResponseFormatter.created(res, responseUser);
+    ApiResponseFormatter.success(res, responseUser);
   } catch (error) {
+    console.log(error);
     ApiResponseFormatter.error(res, error as Error);
   }
 }
@@ -115,7 +118,11 @@ export async function getUserInfoHandler(req: Request, res: Response) {
 
     const decoded = verifyJWT(tokenCookie) as JwtPayload;
 
-    const user = await userRepository.findOneByQuery({ id: decoded.sub });
+    const user = await new UserRepository(
+      pool,
+      new UserMapper(),
+      new AuthService()
+    ).findOneByQuery({ id: decoded.sub });
 
     ApiResponseFormatter.success(res, userMapper.toApiResponse(user));
   } catch (error) {
