@@ -44,7 +44,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-This is a simplified project building an AI chatbot to assited musician, it uses ChatGPT3 under the one for all AI functionalities
+This is a simplified project building an AI chatbot to assist musicians, it uses ChatGPT under the hood for all AI functionalities
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
