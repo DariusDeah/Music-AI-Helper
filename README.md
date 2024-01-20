@@ -161,7 +161,7 @@ Helpful links and references used while building this project
 
 - [OWASP Security](https://owasp.org/www-project-top-ten/)
 - [ChatGPT API Reference](https://platform.openai.com/docs/api-reference)
-- [PG-Node Docs](hhttps://node-postgres.com/)
+- [PG-Node Docs](https://node-postgres.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
