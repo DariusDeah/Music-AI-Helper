@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import { Pool } from "pg";
 import app from "./app";
+import { initChatTable } from "./db/chat";
 import { initUserTable } from "./db/user";
 
 config();
@@ -30,6 +31,7 @@ async function initServer() {
   });
 
   await initUserTable();
+  await initChatTable();
 }
 
 initServer();

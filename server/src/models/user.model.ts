@@ -62,6 +62,7 @@ export class User {
       email: z.string().email(),
       ip: z.string().ip(),
     });
+
     return user.parse(data);
   }
 }

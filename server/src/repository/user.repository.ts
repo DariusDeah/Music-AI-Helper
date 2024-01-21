@@ -2,7 +2,7 @@ import { Pool } from "pg";
 import { RepositoryBase } from "../../interfaces/repository-base.interface";
 import { UserQueryFields } from "../../interfaces/user/user.interfaces";
 import { AuthService } from "../../libs/auth.libs";
-import { UserMapper } from "../mappers/user.maper";
+import { UserMapper } from "../mappers/user.mapper";
 import { User, UserProp } from "../models/user.model";
 
 export class UserRepository

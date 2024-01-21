@@ -4,7 +4,7 @@ import { JwtPayload } from "jsonwebtoken";
 import cookie from "cookie";
 import { UserRepository } from "../repository/user.repository";
 import { ApiResponseFormatter } from "../utils/api-response-formatter.utils";
-import { UserMapper } from "../mappers/user.maper";
+import { UserMapper } from "../mappers/user.mapper";
 import { AuthService } from "../../libs/auth.libs";
 import { signJWT, verifyJWT } from "../../libs/jwt.libs";
 import { pool } from "../../server";

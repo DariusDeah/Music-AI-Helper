@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import aiRouter from "./src/routes/ai.routes";
 import authRouter from "./src/routes/auth.routes";
+import chatRouter from "./src/routes/chat.routes";
 
 config();
 
@@ -22,4 +23,5 @@ app.use("/api/v1/health", (req: Request, res: Response) => {
 
 app.use("/api/v1/ai", aiRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/chats", chatRouter);
 export default app;
