@@ -13,7 +13,7 @@ export class UserRepository
     private readonly mapper: UserMapper,
     private readonly authService: AuthService
   ) {}
-
+  //this function has a side-effect, not best practice, to update code mode password hashing to handler and I can move Id generation to here
   async insert(user: UserProp): Promise<User> {
     const query = `
     INSERT INTO users (id,email, password, username,ip) 

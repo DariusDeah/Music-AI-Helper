@@ -9,12 +9,15 @@ import { ApiResponseFormatter } from "../utils/api-response-formatter.utils";
 
 export function authGuard(req: Request, res: Response, next: NextFunction) {
   try {
-    if (!req.headers.cookie) {
+    if (!req.headers.cookie || !req.headers.authorization) {
       throw new UnAuthenticatedError();
     }
-    const tokenCookie = cookie.parse(req.headers.cookie || "")["token"];
 
-    const decoded = verifyJWT(tokenCookie) as JwtPayload;
+    const authValue =
+      cookie.parse(req.headers.cookie || "")["token"] ??
+      req.headers.authorization.split(" ")[2];
+
+    const decoded = verifyJWT(authValue) as JwtPayload;
 
     req.user = {
       id: decoded.sub,
@@ -27,7 +30,6 @@ export function authGuard(req: Request, res: Response, next: NextFunction) {
     next();
   } catch (error) {
     console.log(error);
-
     ApiResponseFormatter.error(res, error as Error);
   }
 }
