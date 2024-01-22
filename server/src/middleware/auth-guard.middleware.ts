@@ -9,16 +9,16 @@ import { ApiResponseFormatter } from "../utils/api-response-formatter.utils";
 
 export function authGuard(req: Request, res: Response, next: NextFunction) {
   try {
-    if (!req.headers.cookie || !req.headers.authorization) {
+    if (!req.headers.cookie && !req.headers.authorization) {
       throw new UnAuthenticatedError();
     }
 
     const authValue =
-      cookie.parse(req.headers.cookie || "")["token"] ??
-      req.headers.authorization.split(" ")[2];
+      cookie.parse(req.headers.cookie || "")["token"] ||
+      req.headers.authorization!.split(" ")[1];
 
     const decoded = verifyJWT(authValue) as JwtPayload;
-
+    console.log(decoded);
     req.user = {
       id: decoded.sub,
       email: decoded.data.email,
@@ -26,7 +26,7 @@ export function authGuard(req: Request, res: Response, next: NextFunction) {
       ip: decoded.data.ip,
       password: decoded.data.password,
     } as UserProp;
-
+    console.log(req.user);
     next();
   } catch (error) {
     console.log(error);
